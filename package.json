@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "mdns": "^2.3.1",
-    "wemo-client": "^0.6.6"
+    "noble": "^1.6.0"
   },
   "devDependencies": {},
   "scripts": {

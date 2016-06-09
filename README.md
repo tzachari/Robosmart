@@ -1,5 +1,5 @@
-WeMogen Heap
-============
+Robosmart
+=========
 
 Simple web app served on the local network that discovers and controls [Robosmart Light Bulbs](http://www.smartbotics.com/#!products/c218d) over BLE.
 
