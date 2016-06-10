@@ -5,14 +5,14 @@ var app     = express();
 
 // Serve www/
 app.use(express.static(__dirname + '/www'));
-app.listen(3000, function() {
+app.listen(0, function() {
   var peripheral = null;
   console.log(new Date(), 'Serving http://localhost:' + this.address().port);
 
   // Advertise over mDNS
   mdns.createAdvertisement(mdns.tcp('http'), this.address().port,{name:'Robosmart'}).start();
 
-  app.get('/state', function(req, res) {
+  app.post('/state', function(req, res) {
     peripheral.connect(function(){
       peripheral.discoverSomeServicesAndCharacteristics(["ff10"],["ff11"], function(error, services, characteristics) {
         characteristics[0].read(function(error,data){
@@ -23,7 +23,7 @@ app.listen(3000, function() {
     });
   });
 
-  app.get('/toggle', function(req, res) {
+  app.post('/toggle', function(req, res) {
     peripheral.connect(function(){
       peripheral.discoverSomeServicesAndCharacteristics(["ff10"],["ff11"], function(error, services, characteristics) {
         characteristics[0].read(function(error,data){

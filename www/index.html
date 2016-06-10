@@ -23,19 +23,18 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width, target-densitydpi=device-dpi" />
-        <link rel="icon" href="img/logo.png">
         <title>BLE Light</title>
         <style type="text/css">
             html, body {height:100%; background:#eee; margin:0; text-align:center; overflow:hidden; white-space:nowrap;}
             svg {height:calc(100% - 240px); margin:10px;}
             h1 {font-family:'Helvetica Neue',sans-serif-thin; font-size:50px; line-height:1em; font-weight:100; color:#888; margin:30px 0;}
             .Dis {-webkit-filter: opacity(20%) grayscale(100%);}
-            .Off {-webkit-filter: grayscale(100%);}
+            .false {-webkit-filter: grayscale(100%);}
         </style>
     </head>
     <body>
         <h1 id="title">BLE Light</h1>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 538 932" name="bulb" class="Dis">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 538 932" id="item" name="bulb" class="Dis">
             <g transform="matrix(1.25 0 0 -1.25 -4995.7 416.19) translate(0 2.2375)">
               <path d="m4294.5-353.43c0-16.179-13.118-29.297-29.297-29.297h-107.25c-16.179 0-29.297 13.118-29.297 29.297v127.07c0 16.182 13.118 29.297 29.297 29.297h107.25c16.179 0 29.297-13.115 29.297-29.297v-127.07" fill="#bbb" />
               <path d="m4304.6-256.89c0-8.3325-6.7554-15.088-15.088-15.088h-155.81c-8.3325 0-15.088 6.7553-15.088 15.088v4.3823c0 8.3325 6.7554 15.09 15.088 15.09h155.81c8.3325 0 15.088-6.7578 15.088-15.09v-4.3823" fill="#777" />
@@ -46,6 +45,23 @@
             </g>
           </svg>
         <h1 id="console"></h1>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script>
+          item = document.querySelector("#item");
+          cons = document.querySelector("#console");
+          send = function(path) {
+            xr = new XMLHttpRequest();
+            xr.open('POST',path);
+            xr.send(null);
+            cons.innerHTML = "Connecting...";
+            xr.onreadystatechange = function () {
+              if (xr.readyState === 4 && xr.status === 200) {
+                item.setAttribute("class",xr.responseText);
+                cons.innerHTML = xr.responseText=="true"?"On":"Off";
+              } // else setTimeout(function(){send(path)},1000);
+            };
+          }
+          item.onclick = function() { send('/toggle'); }
+          send('/state');
+        </script>
     </body>
 </html>
