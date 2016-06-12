@@ -16,7 +16,7 @@ app.listen(0, function() {
     peripheral.connect(function(){
       peripheral.discoverSomeServicesAndCharacteristics(["ff10"],["ff11"], function(error, services, characteristics) {
         characteristics[0].read(function(error,data){
-          if (req) res.sendStatus(data[0]==1);
+          if (req) res.send(data[0]==1);
           peripheral.disconnect();
         })
       });
@@ -28,7 +28,7 @@ app.listen(0, function() {
       peripheral.discoverSomeServicesAndCharacteristics(["ff10"],["ff11"], function(error, services, characteristics) {
         characteristics[0].read(function(error,data){
           characteristics[0].write(new Buffer([!data[0]]),false,function(e){
-            if (req) res.sendStatus(!data[0]);
+            if (req) res.send(!data[0]);
             peripheral.disconnect();
           });
         });
