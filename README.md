@@ -15,6 +15,10 @@ Install [Xcode](https://itunes.apple.com/ca/app/xcode/id497799835?mt=12)
 
     sudo apt-get install bluetooth bluez libbluetooth-dev libudev-dev
 
+*bian systems may also require
+
+    sudo apt-get install libavahi-compat-libdnssd-dev
+
 #### Linux (Fedora / Other-RPM based)[UNTESTED]
 
     sudo yum install bluez bluez-libs bluez-libs-devel
